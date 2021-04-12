@@ -16,14 +16,14 @@ ALLOWED_IDLE_TIME = 180
 def main():
 	monitor = IdleMonitor.get_monitor()
 
-	while(True):
+	while True:
 		time.sleep(INTERVAL_TO_CHECK)
 		idleTime = monitor.get_idle_time()
 		print(idleTime)
 		if(idleTime > ALLOWED_IDLE_TIME):
 			pyautogui.press('win')
 			pyautogui.press('win')
-			print("You were afk for {} seconds, but no worries".format(idleTime))
+			print(f"You were afk for {idleTime} seconds, but no worries")
 
 
 if __name__ == "__main__":
