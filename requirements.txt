@@ -1,0 +1,2 @@
+PyAutoGUI==0.9.52
+idle_time==0.1.0
