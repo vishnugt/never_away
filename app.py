@@ -21,7 +21,6 @@ def main():
 		idleTime = monitor.get_idle_time()
 		print(idleTime)
 		if(idleTime > ALLOWED_IDLE_TIME):
-			currentMouseX, currentMouseY = pyautogui.position()
 			pyautogui.press('win')
 			pyautogui.press('win')
 			print("You were afk for {} seconds, but no worries".format(idleTime))
