@@ -13,7 +13,7 @@ import time
 import pyautogui
 import progressbar
 
-ALLOWED_IDLE_TIME = 180 #In seconds
+ALLOWED_IDLE_TIME = 10 #In seconds
 
 def main():
 	while True:
@@ -29,13 +29,14 @@ def forever():
 		idleTime = monitor.get_idle_time()
 		if prevTime > idleTime:
 			bar.start()
+		prevTime = idleTime
 		bar.update(min(idleTime + 1, ALLOWED_IDLE_TIME))
 		if(idleTime > ALLOWED_IDLE_TIME):
 			pyautogui.press('win')
 			time.sleep(0.15) #necessary else two keypresses sometimes getting registered as one
 			pyautogui.press('win')
 			bar.finish()
-			print("You were afk for {} seconds, sending some keystrokes".format(idleTime))
+			print(f"You were afk for {idleTime} seconds, sending some keystrokes")
 			return
 
 if __name__ == "__main__":
