@@ -13,7 +13,7 @@ import time
 import pyautogui
 import progressbar
 
-ALLOWED_IDLE_TIME = 10 #In seconds
+ALLOWED_IDLE_TIME = 180 #In seconds
 
 def main():
 	while True:
