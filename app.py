@@ -2,7 +2,7 @@
 Install the dependencies using
 	pip install -r requirements.txt
 
-or install it manuall
+or install it manually
 	pip install idle-time
 	pip install pyautogui
 	pip install progressbar
