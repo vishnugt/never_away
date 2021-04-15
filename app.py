@@ -9,13 +9,18 @@ or install it manually
 '''
 
 from idle_time import IdleMonitor
+from datetime import datetime
 import time
 import pyautogui
 import progressbar
 
 ALLOWED_IDLE_TIME = 180 #In seconds
 
+counter = 1
+startTime = datetime.now().timestamp()
+
 def main():
+	print(f"Starting with idle time out as {ALLOWED_IDLE_TIME} seconds")
 	while True:
 		forever()
 
@@ -36,7 +41,12 @@ def forever():
 			time.sleep(0.15) #necessary else two keypresses sometimes getting registered as one
 			pyautogui.press('win')
 			bar.finish()
-			print(f"You were afk for {idleTime} seconds, sending some keystrokes")
+			global counter
+			timeWorked = (datetime.now().timestamp() - startTime - (counter * ALLOWED_IDLE_TIME))/60
+			afkTime = counter * ALLOWED_IDLE_TIME / 60
+
+			print(f"You were afk for {format(afkTime, '.3f')} minutes, and you have worked for {format(timeWorked, '.3f')} minutes or {format(timeWorked/60, '.3f')} hours")
+			counter += 1
 			return
 
 if __name__ == "__main__":
