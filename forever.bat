@@ -1,1 +1,0 @@
-start pythonw C:\Workspace\personal\teams\app.py
