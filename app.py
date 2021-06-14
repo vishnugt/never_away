@@ -13,25 +13,44 @@ from datetime import datetime
 import time
 import pyautogui
 import progressbar
+from ctypes import Structure, windll, c_uint, sizeof, byref
 
 ALLOWED_IDLE_TIME = 180 #In seconds
 
 counter = 1
 startTime = datetime.now().timestamp()
 
+
 def main():
 	print(f"Starting with idle time out as {ALLOWED_IDLE_TIME} seconds")
 	while True:
 		forever()
 
+
+class LASTINPUTINFO(Structure):
+    _fields_ = [
+        ('cbSize', c_uint),
+        ('dwTime', c_uint),
+    ]
+
+
+def get_idle_duration():
+    lastInputInfo = LASTINPUTINFO()
+    lastInputInfo.cbSize = sizeof(lastInputInfo)
+    windll.user32.GetLastInputInfo(byref(lastInputInfo))
+    millis = windll.kernel32.GetTickCount() - lastInputInfo.dwTime
+    return millis / 1000.0
+
 def forever():
-	monitor = IdleMonitor.get_monitor()
-	prevTime = monitor.get_idle_time();
+	#monitor = IdleMonitor.get_monitor()
+	#prevTime = monitor.get_idle_time();
+	prevTime = get_idle_duration();
 	bar = progressbar.ProgressBar(maxval=ALLOWED_IDLE_TIME, widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 	bar.start()
 	while True:
 		time.sleep(1)
-		idleTime = monitor.get_idle_time()
+		#idleTime = monitor.get_idle_time()
+		idleTime = get_idle_duration()
 		if prevTime > idleTime:
 			bar.start()
 		prevTime = idleTime
