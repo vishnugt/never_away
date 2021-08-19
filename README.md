@@ -1,4 +1,4 @@
-Makes sure your PC isn't automatically locked when left unattended
+This script makes sure your PC isn't automatically locked when left unattended
 
 Install the dependencies by running
 ```
